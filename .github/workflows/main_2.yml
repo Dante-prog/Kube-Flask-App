@@ -15,3 +15,26 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+         context: .
+         push: true
+         tags: <your-docker-username>/flask-hello-world:latest
+
+      - name: Install and configure kubectl
+        run: |
+         VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+         curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
+          --progress-bar \
+          --location \
+          --remote-name
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
+          echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
+
+      - name: Deploy to Kubernetes
+        run: |
+         export KUBECONFIG=kubeconfig.yaml
+         kubectl apply -f deployment.yaml
+         kubectl apply -f service.yaml
