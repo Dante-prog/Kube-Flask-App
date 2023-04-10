@@ -26,7 +26,7 @@ jobs:
         run: |
          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws configure set default.region us-west-2 # Replace 'us-west-2' with your AWS region
+         aws configure set default.region us-east-1 # Replace 'us-west-2' with your AWS region
 
 
       - name: Install and configure kubectl
@@ -47,5 +47,5 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
          export KUBECONFIG=kubeconfig.yaml
-         kubectl apply -f deployment.yaml
-         kubectl apply -f service.yaml
+         kubectl apply -f flask-deploy.yaml
+         kubectl apply -f flask-svc.yaml
