@@ -20,7 +20,7 @@ jobs:
         with:
          context: .
          push: true
-         tags: <your-docker-username>/flask-hello-world:latest
+         tags: dante0197/flask-app:latest
 
       - name: Install and configure kubectl
         run: |
