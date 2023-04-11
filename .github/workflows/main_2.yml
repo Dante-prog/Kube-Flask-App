@@ -49,3 +49,4 @@ jobs:
          export KUBECONFIG=kubeconfig.yaml
          kubectl apply -f flask-deploy.yaml
          kubectl apply -f flask-svc.yaml
+         kubectl rollout status deployment/flask-app
