@@ -54,6 +54,11 @@ def delete(post_id):
     db.session.commit()
     return redirect(url_for('index'))
 
+@app.route('/healthcheck')
+def healthcheck():
+    return '', 200
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
 
