@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Welcome to the Application which has nothing'
+    return 'Welcome to the Application which has nothing so you can leave'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
