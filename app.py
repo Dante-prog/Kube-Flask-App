@@ -3,13 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 
+db = SQLAlchemy()
+
 def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:nd3Ruzsq4xa.RfHMQhkJmNUV@flask-app-post-db.cdjokhunziur.us-east-1.rds.amazonaws.com:5432/postgres'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    db = SQLAlchemy(app)
-    db.create_all(app=app)
+    db.init_app(app)
+
+    with app.app_context():
+        db.create_all()
 
     return app, db
 
