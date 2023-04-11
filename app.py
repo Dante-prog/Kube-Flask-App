@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from database.py import init_db
+from database import init_db
 
 
 app = Flask(__name__)
