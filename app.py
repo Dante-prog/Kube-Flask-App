@@ -1,17 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from database import init_db
 
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:nd3Ruzsq4xa.RfHMQhkJmNUV@flask-app-post-db.cdjokhunziur.us-east-1.rds.amazonaws.com:5432/postgres'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:nd3Ruzsq4xa.RfHMQhkJmNUV@flask-app-post-db.cdjokhunziur.us-east-1.rds.amazonaws.com:5432/postgres'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+    db = SQLAlchemy(app)
+    db.create_all(app=app)
 
-# Initialize the database
-init_db()
+    return app, db
+
+app, db = create_app()
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
