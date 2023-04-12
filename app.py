@@ -28,7 +28,8 @@ class Post(db.Model):
 
 @app.before_request
 def log_request_info():
-    app.logger.info('Request received from %s for %s', request.remote_addr, request.path)
+    ip_address = request.headers.get('X-Forwarded-For', request.remote_addr)
+    app.logger.info('Request received from %s for %s', ip_address, request.path)
 
 #This is the home route.
 @app.route('/')
