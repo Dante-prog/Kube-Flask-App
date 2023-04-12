@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import logging
 
 
 db = SQLAlchemy()
@@ -9,7 +10,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:nd3Ruzsq4xa.RfHMQhkJmNUV@flask-app-post-db.cdjokhunziur.us-east-1.rds.amazonaws.com:5432/postgres'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    logging.basicConfig(level=logging.DEBUG)
     db.init_app(app)
 
     with app.app_context():
@@ -25,6 +26,11 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
 
+@app.before_request
+def log_request_info():
+    app.logger.info('Request received from %s for %s', request.remote_addr, request.path)
+
+#This is the home route.
 @app.route('/')
 def index():
     posts = Post.query.all()
@@ -61,5 +67,3 @@ def healthcheck():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
-
-
