@@ -49,9 +49,14 @@ jobs:
           sudo mv aws-iam-authenticator /usr/local/bin
           echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
 
+      - name: Delete pods
+        run: |
+          export KUBECONFIG=kubeconfig.yaml
+          kubectl delete pods -l app=flask-app
       - name: Deploy to Kubernetes
         run: |
-         export KUBECONFIG=kubeconfig.yaml
-         kubectl apply -f flask-deploy.yaml
-         kubectl apply -f flask-svc.yaml
-         kubectl rollout status deployment/flask-app
+          export KUBECONFIG=kubeconfig.yaml
+          kubectl apply -f flask-deploy.yaml
+          kubectl apply -f flask-svc.yaml
+          kubectl rollout status deployment/flask-app
+
