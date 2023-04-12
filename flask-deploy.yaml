@@ -15,5 +15,6 @@ spec:
       containers:
       - name: flask-app
         image: dante0197/flask-app:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
