@@ -2,14 +2,20 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import logging
+from config import DevelopmentConfig, ProductionConfig
+import os
+from dotenv import load_dotenv
 
-
+load_dotenv()
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:nd3Ruzsq4xa.RfHMQhkJmNUV@flask-app-post-db.cdjokhunziur.us-east-1.rds.amazonaws.com:5432/postgres'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    env = os.environ.get('FLASK_ENV', 'development')
+    if env == 'production':
+        app.config.from_object(ProductionConfig)
+    else:
+        app.config.from_object(DevelopmentConfig)
     logging.basicConfig(level=logging.DEBUG)
     db.init_app(app)
 
