@@ -20,7 +20,7 @@ jobs:
         with:
          context: .
          push: true
-         tags: dante0197/flask-app:latest
+         tags: dante0197/flask-app:$GITHUB_SHA
      
       - name: Configure AWS CLI
         run: |
