@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: dante0197/flask-app:latest
+        image: dante0197/flask-app:${{ github.sha }}
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
