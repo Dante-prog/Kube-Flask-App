@@ -20,8 +20,13 @@ jobs:
         with:
          context: .
          push: true
-         tags: dante0197/flask-app:${{ github.sha }}
-     
+         tags: |
+            dante0197/flask-app:${{ github.sha }}
+            dante0197/flask-app:latest
+      - name: Tag image as latest
+        run: |
+          docker tag dante0197/flask-app:${{ github.sha }} dante0197/flask-app:latest
+          docker push dante0197/flask-app:latest
       - name: Configure AWS CLI
         run: |
          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
