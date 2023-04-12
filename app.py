@@ -67,7 +67,7 @@ def healthcheck():
 
 @app.route('/resources')
 def resources():
-    return render_template('resources.html')
+    return "This is the resources page"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
