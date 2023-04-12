@@ -65,6 +65,9 @@ def delete(post_id):
 def healthcheck():
     return '', 200
 
+@app.route('/resources')
+def resources():
+    return render_template('resources.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
