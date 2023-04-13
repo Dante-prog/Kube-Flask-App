@@ -28,7 +28,16 @@ def create_app():
 
 app, db = create_app()
 
+class AppFilter(logging.Filter):
+    def filter(self, record):
+        record.app = "flask-app-dev"
+        return True
 
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(app)s - %(message)s")
+handler = logging.StreamHandler()
+handler.setFormatter(formatter)
+handler.addFilter(AppFilter())
+app.logger.addHandler(handler)
 
 @app.before_request
 def log_request_info():
