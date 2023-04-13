@@ -10,4 +10,5 @@ COPY .env .
 
 EXPOSE 8080
 
-CMD ["gunicorn","wsgi:app", "-w", "4", "-b", "0.0.0.0:8080"]
+#CMD ["gunicorn","wsgi:app", "-w", "4", "-b", "0.0.0.0:8080"]
+CMD ["python3", "app.py"]
