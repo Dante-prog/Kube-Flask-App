@@ -6,7 +6,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-COPY /Users/kevinarias/Projects/kube-flask-app/.env .
+COPY .env .
 
 EXPOSE 8080
 
