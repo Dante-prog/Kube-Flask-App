@@ -30,6 +30,9 @@ jobs:
           BUILD_VERSION: dev
       - name: Echo BUILD_VERSION
         run: echo "BUILD_VERSION=$BUILD_VERSION"
+      - name: Set build version
+        run: |
+            echo "BUILD_VERSION=dev" >> $GITHUB_ENV
       - name: Tag image as dev
         run: |
           if [ -n "$BUILD_VERSION" ]; then
