@@ -28,6 +28,8 @@ jobs:
           if: github.ref == 'refs/heads/development'
         env:
           BUILD_VERSION: dev
+      - name: Echo BUILD_VERSION
+        run: echo "BUILD_VERSION=$BUILD_VERSION"
       - name: Tag image as dev
         run: |
           if [ -n "$BUILD_VERSION" ]; then
