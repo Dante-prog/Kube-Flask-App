@@ -5,39 +5,116 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask Blog</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='newstyle.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .hero-body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        
+        .title.is-1 {
+          color: #363636;
+        }
+        
+        .button.is-info {
+          margin-left: 10px;
+        }
+        
+        textarea,
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+          background-color: white;
+          border-color: #209cee;
+        }
+      
+        button {
+          background-color: #363636;
+          color: #fff;
+        }
+        .post-date {
+            position: relative;
+            bottom: 0;
+            left: 0;
+        }        
+      </style>
+      
 </head>
 <body>
-    <h1>Flask Blog</h1>
-    <form action="{{ url_for('my_blueprint.create') }}" method="post">
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" required>
-        <br>
-        <label for="content">Content:</label>
-        <textarea name="content" id="content" required></textarea>
-        <br>
-        <button type="submit">Create Post</button>
-    </form>
+    <section class="hero is-primary">
+        <div class="hero-body has-text-centered">
+            <div class="container">
+                <h1 class="title is-1">
+                    Flask Blog
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <form action="{{ url_for('my_blueprint.create') }}" method="post">
+                <div class="field">
+                    <label class="label">Title:</label>
+                    <div class="control">
+                        <input class="input" type="text" name="title" id="title" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Content:</label>
+                    <div class="control">
+                        <textarea class="textarea" name="content" id="content" required></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">Create Post</button>
+                    </div>
+                </div>
+            </form>
 
-    <h2>Posts</h2>
-    {% for post in posts %}
-    <div>
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.content }}</p>
-        <p>{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-        <form action="{{ url_for('my_blueprint.edit', post_id=post.id) }}" method="post">
-            <label for="title">Title:</label>
-            <input type="text" name="title" id="title" value="{{ post.title }}" required>
-            <br>
-            <label for="content">Content:</label>
-            <textarea name="content" id="content" required>{{ post.content }}</textarea>
-            <br>
-            <button type="submit">Update Post</button>
-        </form>
-        <form action="{{ url_for('my_blueprint.delete', post_id=post.id) }}" method="post">
-            <button type="submit">Delete Post</button>
-        </form>
-    </div>
-    {% endfor %}
-</body>
-</html>
+            <hr>
+
+            <h2 class="subtitle">Posts</h2>
+            {% for post in posts %}
+            <div class="box">
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{{ post.title }}</strong>
+                                <br>
+                                {{ post.content }}
+                                <br>
+                                <small class="post-date">{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="media-right">
+                        <form action="{{ url_for('my_blueprint.edit', post_id=post.id) }}" method="post">
+                            <div class="field">
+                                <label class="label">Title:</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="title" id="title" value="{{ post.title }}" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Content:</label>
+                                <div class="control">
+                                    <textarea class="textarea" name="content" id="content" required>{{ post.content }}</textarea>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-primary" type="submit">Update Post</button>
+                                    <button class="button is-primary is-danger" type="submit">Delete Post</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</body

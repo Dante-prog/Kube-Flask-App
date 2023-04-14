@@ -1,0 +1,14 @@
+loki:
+  storage:
+    bucketNames:
+      chunks: chunks
+      ruler: ruler
+      admin: admin
+    type: s3
+    s3:
+      endpoint: https://s3.amazonaws.com
+      region: us-east-1
+      secretAccessKey: SvcIa568QmLESG1rnX2ru1toFVbHRp+Ed8LHXxPk
+      accessKeyId: AKIASXSQIYEJAWV5EKMI
+      s3ForcePathStyle: false
+      insecure: false
