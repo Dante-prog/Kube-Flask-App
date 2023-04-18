@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask Blog</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="static/updatePost.js"></script>
     <style>
         .hero-body {
           display: flex;
@@ -33,6 +34,8 @@
           background-color: #363636;
           color: #fff;
         }
+
+        
 
       </style>
       
@@ -92,25 +95,25 @@
                         <div class="field">
                           <label class="label">Title:</label>
                           <div class="control">
-                            <input class="input" type="text" name="title" id="title" value="{{ post.title }}" required>
+                            <input class="input" type="text" name="title" id="Post-{{post.title}}" placeholder="Edit Title" required>
                           </div>
                         </div>
                         <div class="field">
                           <label class="label">Content:</label>
                           <div class="control">
-                            <textarea class="textarea" name="content" id="content" required>{{ post.content }}</textarea>
+                            <textarea class="textarea" name="content" required placeholder="Edit Post" oninput="enableButtons(this,{{ post.id}})"></textarea>
                           </div>
                         </div>
                         <div class="field">
                           <div class="control">
-                            <button class="button is-primary" type="submit">Update Post</button>
+                            <button class="button is-primary updatePost" type="submit" disabled id="buttonU-{{ post.id }}">Update Post</button>
                           </div>
                         </div>
                       </form>
                       <form action="{{ url_for('my_blueprint.delete', post_id=post.id) }}" method="post">
                         <div class="field">
                           <div class="control">
-                            <button class="button is-danger" type="submit" style="margin-top:5px">Delete Post</button>
+                            <button class="button is-danger" type="submit" style="float:right; transform: translateY(-100%); ">Delete Post</button>
                     </div>
                           
                         </div>
