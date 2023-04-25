@@ -50,11 +50,10 @@ jobs:
           sudo apt-get install python3-pip
           pip3 install linode-cli --upgrade
           pip3 install boto
-      - name: Configure Linode CLI
-        run: |
-          mkdir -p ~/.config/linode-cli
-          echo "[DEFAULT]" > ~/.config/linode-cli/config
-          echo "token = ${{ secrets.LINODE_API_TOKEN }}" >> ~/.config/linode-cli/config
+      - name: Install the Linode CLI
+  		uses: linode/action-linode-cli@v1
+  		with:
+    	token: ${{ secrets.LINODE_API_TOKEN }}
       - name: Install and configure kubectl
         run: |
           VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
