@@ -53,8 +53,6 @@ jobs:
           curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
           chmod +x ./kind
           sudo mv ./kind /usr/local/bin/kind
-
-
       - name: Install and configure kubectl
         run: |
           VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -68,8 +66,6 @@ jobs:
           echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
           export KUBECONFIG=kubeconfig.yaml
           linode-cli lke kubeconfig-view $LINODE_CLUSTER_NAME --token $LINODE_API_TOKEN > $KUBECONFIG
-
-
       - name: Delete pods
         run: |
           export KUBECONFIG=kubeconfig.yaml
