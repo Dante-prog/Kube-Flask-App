@@ -47,3 +47,6 @@ def resources():
 def resources():
     return "This is the new page"
 
+@my_blueprint.route('/newpage_1')
+def resources():
+    return "This is the new page 1"
