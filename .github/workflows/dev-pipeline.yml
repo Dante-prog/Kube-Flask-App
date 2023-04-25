@@ -58,7 +58,7 @@ jobs:
             --remote-name
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
-          export LINODE_CLUSTER_NAME="My-Cluster"
+          export LINODE_CLUSTER_NAME="104926"
           export KUBECONFIG_FILE="kubeconfig.yaml"
           linode-cli lke kubeconfig-view $LINODE_CLUSTER_NAME --token $LINODE_TOKEN > $KUBECONFIG_FILE
       - name: Delete pods
