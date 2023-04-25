@@ -64,8 +64,7 @@ jobs:
           linode-cli lke kubeconfig-view $LINODE_CLUSTER_NAME > $KUBECONFIG
       - name: Delete pods
         run: |
-          export KUBECONFIG=kubeconfig.yaml
-          kubectl delete pods -l app=flask-app-dev -n development
+          kubectl delete pods -l app=flask-app -n development
       - name: Deploy to Kubernetes
         run: |
           export KUBECONFIG=kubeconfig.yaml
