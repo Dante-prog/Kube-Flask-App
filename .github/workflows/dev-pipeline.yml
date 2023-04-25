@@ -48,7 +48,7 @@ jobs:
         uses: linode/action-linode-cli@v1
         with:
           token: ${{ secrets.LINODE_API_TOKEN }}
-           
+
       - name: Install and configure kubectl
         run: |
           VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -60,7 +60,7 @@ jobs:
           sudo mv kubectl /usr/local/bin/
           export LINODE_CLUSTER_NAME="My-Cluster"
           export KUBECONFIG_FILE="kubeconfig.yaml"
-          linode-cli --token $LINODE_TOKEN lke kubeconfig get $LINODE_CLUSTER_NAME --file $KUBECONFIG_FILE
+          linode-cli lke kubeconfig-view $LINODE_CLUSTER_NAME --token $LINODE_TOKEN > $KUBECONFIG_FILE
       - name: Delete pods
         run: |
           export KUBECONFIG=kubeconfig.yaml
