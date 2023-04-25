@@ -42,3 +42,7 @@ def healthcheck():
 @my_blueprint.route('/resources')
 def resources():
     return "This is the resources page"
+
+@my_blueprint.route('/newpage')
+def resources():
+    return "This is the new page"
