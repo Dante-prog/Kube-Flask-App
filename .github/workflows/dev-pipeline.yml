@@ -48,24 +48,21 @@ jobs:
         uses: linode/action-linode-cli@v1
         with:
           token: ${{ secrets.LINODE_API_TOKEN }}
-      - name: Install kind
-        run: |
-          curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
-          chmod +x ./kind
-          sudo mv ./kind /usr/local/bin/kind
+
       - name: Install and configure kubectl
         run: |
           VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
           curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
-            --progress-bar \
-            --location \
-            --remote-name
+              --progress-bar \
+              --location \
+              --remote-name
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
           export LINODE_CLUSTER_NAME="104926"
           echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
           export KUBECONFIG=kubeconfig.yaml
-          linode-cli lke kubeconfig-view $LINODE_CLUSTER_NAME > $KUBECONFIG
+          linode-cli lke kubeconfig-view $LINODE_CLUSTER_NAME > kubeconfig_output.yaml
+          cat kubeconfig_output.yaml >> $KUBECONFIG
       - name: Delete pods
         run: |
           export KUBECONFIG=kubeconfig.yaml
