@@ -44,11 +44,13 @@ jobs:
             docker tag dante0197/flask-app:${{ github.sha }} dante0197/flask-app:latest
             docker push dante0197/flask-app:latest
           fi
-      - name: Configure AWS CLI
+      - name: Install Linode CLI and Boto library
         run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region us-east-1 # Replace 'us-west-2' with your AWS region
+          sudo apt-get install python3-pip
+          pip3 install linode-cli --upgrade
+          pip3 install boto
+      - name: Configure Linode CLI
+        run: linode-cli configure --token ${{ secrets.LINODE_API_TOKEN }}
       - name: Install and configure kubectl
         run: |
           VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -58,11 +60,9 @@ jobs:
             --remote-name
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
-          # Install AWS IAM Authenticator
-          curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.22.9/2023-03-22/bin/linux/amd64/aws-iam-authenticator
-          chmod +x ./aws-iam-authenticator
-          sudo mv aws-iam-authenticator /usr/local/bin
-          echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
+          export LINODE_CLUSTER_NAME="My-Cluster"
+          export KUBECONFIG_FILE="kubeconfig.yaml"
+          linode-cli lke kubeconfig get $LINODE_CLUSTER_NAME --file $KUBECONFIG_FILE
       - name: Delete pods
         run: |
           export KUBECONFIG=kubeconfig.yaml
