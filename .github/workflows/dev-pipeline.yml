@@ -48,6 +48,12 @@ jobs:
         uses: linode/action-linode-cli@v1
         with:
           token: ${{ secrets.LINODE_API_TOKEN }}
+      - name: Install kind
+        run: |
+          curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+          chmod +x ./kind
+          sudo mv ./kind /usr/local/bin/kind
+
 
       - name: Install and configure kubectl
         run: |
