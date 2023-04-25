@@ -39,14 +39,3 @@ def delete(post_id):
 def healthcheck():
     return '', 200
 
-@my_blueprint.route('/resources')
-def resources():
-    return "This is the resources page"
-
-@my_blueprint.route('/newpage')
-def resources():
-    return "This is the new page"
-
-@my_blueprint.route('/newpage_1')
-def resources():
-    return "This is the new page 1"
