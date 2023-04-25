@@ -44,12 +44,11 @@ jobs:
             docker tag dante0197/flask-app:${{ github.sha }} dante0197/flask-app:latest
             docker push dante0197/flask-app:latest
           fi
-      - name: Install Linode CLI and Boto library
-        run: |
-          sudo apt-get install python3-pip
-          pip3 install linode-cli --upgrade
-          pip3 install boto
-          export LINODE_TOKEN="${{ secrets.LINODE_API_TOKEN }}"
+      - name: Install the Linode CLI
+        uses: linode/action-linode-cli@v1
+        with:
+          token: ${{ secrets.LINODE_API_TOKEN }}
+           
       - name: Install and configure kubectl
         run: |
           VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
