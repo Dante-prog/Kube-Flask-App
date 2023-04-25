@@ -61,8 +61,7 @@ jobs:
           export LINODE_CLUSTER_NAME="lke104926"
           echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
           export KUBECONFIG=kubeconfig.yaml
-          linode-cli lke kubeconfig-view $LINODE_CLUSTER_NAME > kubeconfig_output.yaml
-          cat kubeconfig_output.yaml >> $KUBECONFIG
+          linode-cli lke kubeconfig-view $LINODE_CLUSTER_NAME --token $LINODE_API_TOKEN > $KUBECONFIG
       - name: Delete pods
         run: |
           export KUBECONFIG=kubeconfig.yaml
