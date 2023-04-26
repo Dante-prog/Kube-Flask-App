@@ -48,7 +48,7 @@ jobs:
       - name: Delete pods
         run: |
           export KUBECONFIG=kubeconfig.yaml
-          kubectl delete pods -l app=flask-app
+          kubectl delete pods -l app=flask-app -n default
       - name: Deploy to Kubernetes
         run: |
           export KUBECONFIG=kubeconfig.yaml
