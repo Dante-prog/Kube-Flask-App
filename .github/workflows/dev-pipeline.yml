@@ -68,5 +68,5 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           export KUBECONFIG=kubeconfig.yaml
-          kubectl apply -f development-deployment.yaml -n development
+          kubectl apply -f Manifests/development-deployment.yaml -n development
           kubectl rollout status deployment/flask-app-dev -n development
