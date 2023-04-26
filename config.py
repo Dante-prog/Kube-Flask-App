@@ -11,7 +11,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://linpostgres:.ab2Jz2SFpeMuEc9@lin-20330-7173-pgsql-primary.servers.linodedb.net:5432/postgres'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://linpostgres:vc2UHJmw.4TvHHOo@lin-20383-7202-pgsql-primary.servers.linodedb.net:5432/postgres'
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
