@@ -52,7 +52,7 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           export KUBECONFIG=kubeconfig.yaml
-          kubectl apply -f ProdM/flask-deploy.yaml
-          kubectl apply -f ProdM/flask-svc.yaml
+          kubectl apply -f ProdM/flask-deploy.yaml -n default
+          kubectl apply -f ProdM/flask-svc.yaml -n default
           kubectl rollout status deployment/flask-app
 
